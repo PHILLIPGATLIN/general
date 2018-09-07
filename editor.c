@@ -102,6 +102,8 @@ int main(int argc, char *argv[])
 			page[row][column] = 0;
 		}
 	}
+	row = 0;
+	column = 0;
 	while (1)
 	{
 		c = getchar();
