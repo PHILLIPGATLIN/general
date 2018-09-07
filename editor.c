@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
 	while (1)
 	{
 		c = getchar();
-		if (isalnum(c) || isspace(c))
+		if ((c > = 32 && c <= 126) || c == '\t' || c == '\n')
 		{
 			chartopage(c);
 		}
