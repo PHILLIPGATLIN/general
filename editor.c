@@ -95,6 +95,13 @@ int main(int argc, char *argv[])
 	}
 	filetopage(file);
 	drawpage();
+	for (row = 0; row < 1000; row++)
+	{
+		for (column = 0; column < 1000; column++)
+		{
+			page[row][column] = 0;
+		}
+	}
 	while (1)
 	{
 		c = getchar();
