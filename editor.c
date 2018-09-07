@@ -71,27 +71,6 @@ void chartopage(int c)
 		++column;
 	return;
 }
-void deletecharinpage(void);
-void deletecharinpage()
-{
-	if (column > 0)
-	{
-		--column;
-		page[row][column] = 0;
-		return;
-	}
-	else if ((column == 0) && (row > 0))
-	{
-		--row;
-		column = 999;
-		while (!(istext(page[row][column])))
-			--column;
-		page[row][column] = 0;
-		return;
-	}
-	else
-		return;
-}
 int main(int argc, char *argv[])
 {
 	if (argc != 2)
