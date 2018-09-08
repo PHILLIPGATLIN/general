@@ -120,5 +120,6 @@ int main(int argc, char *argv[])
 		else
 			;
 	}
+	fclose(file);
 	return 0;
 }
