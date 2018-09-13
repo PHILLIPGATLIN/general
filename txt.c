@@ -181,6 +181,7 @@ int main(int argc, char *argv[])
 		{
 			filetopage();
 			drawpage();
+			emptypage();
 			input();
 			fclose(file);
 			return 0;
