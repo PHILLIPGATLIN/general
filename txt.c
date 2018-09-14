@@ -93,8 +93,6 @@ void help()
 	       "\t txt [filename]\n"
 	       "2.\ttxt is able to append the contents of one file to another file:\n"
 	       "\t txt merge [append this FILE] [to this FILE]\n"
-	       "3.\tYou can also replace each instance of a word in a file with another word:\n"
-	       "\t txt replace [this WORD] [with this WORD] [in this FILE]\n");
 	return;
 }
 int input(void);
