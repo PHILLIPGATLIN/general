@@ -1,10 +1,14 @@
 #include <stdio.h>
 #include <string.h>
+// workspace //
 unsigned int row=0, column=0;
 FILE *file;
 FILE *fromthisfile;
 FILE *tothatfile;
 char page[1000][1000];
+char line[1000];
+// workspace //
+// program actions //
 void drawpage(void);
 void drawpage ()
 {
@@ -90,9 +94,13 @@ void help()
 	       "plain text documents.\n"
 	       "Acceptable input forms are of the kind 'txt [command] [operands]'.\n"
 	       "1.\tTo create a new plain text document, enter:\n"
-	       "\t txt [filename]\n"
+	       "\t txt [FILE name]\n"
 	       "2.\ttxt is able to append the contents of one file to another file:\n"
-	       "\t txt merge [append this FILE] [to this FILE]\n"
+	       "\t txt [merge] [append this FILE] [to this FILE]\n"
+	       "3.\tTo view the contents of a file, enter:\n"
+	       "\t txt [print] [FILE name]\n"
+	       "4.\tYou can also replace each instance of a word in a file with another word:\n"
+	       "\t txt [replace] [this WORD] [with this WORD] [in this FILE]\n");
 	return;
 }
 int input(void);
@@ -124,6 +132,8 @@ void emptypage()
 		for (column=0; column < 1000; column++)
 			page[row][column] = 0;
 	}
+	row=0;
+	column=0;
 	return;
 }
 void FileError(void);
@@ -133,19 +143,51 @@ void FileError()
        	       "Does the program have permissions to open the file? Is it a directory?\n");
 	return;
 }
+int getaline(void);
+int getaline()
+{
+	int c=0, i=0;
+	while ((c = fgetc(file)) != '\n' && c != EOF)
+		line[i++] = c;
+	if (c == EOF)
+		return EOF;
+	else
+	{
+		line[i] = '\0';
+		return 0;
+	}
+}
+void find(char *);
+void find(char *s)
+{
+	int c=0;
+	char *d = &line[0];
+	while ((c = getaline()) != EOF)
+	{
+		if (strstr(d, s) != NULL)
+			printf("%s\n", line);
+		else
+			continue;
+	}
+}
+// program actions //
 int main(int argc, char *argv[])
 {
 	int n=0, c=0;
+	char word[1000];
+	char *w = &word[0];
 	if (argc < 2 || argc > 4)
 	{
 		printf("ERROR: input was too much, too little, or otherwise not recognized.\n"
 		       "USAGE: txt [file name or file path]\n"
 		       "e.g. txt /home/terry/document.txt\n"
-		       "enter 'txt help' for a more complete description of\n"
+		       "enter 'txt [help]' for a more complete description of\n"
 		       "the program and its abilities.\n");
 		return -1;
 	}
 	emptypage();
+	memset(line, 0, 1000);
+	memset(word, 0, 1000);
 	if (strcmp("help", argv[1]) == 0)
 	{
 		help();
@@ -167,6 +209,37 @@ int main(int argc, char *argv[])
 		fclose(fromthisfile);
 		fclose(tothatfile);
 		return 0;
+	}
+	else if (strcmp("print", argv[1]) == 0)
+	{
+		if ((file = fopen(argv[2], "r")) == NULL)
+		{
+			FileError();
+			return -2;
+		}
+		else
+		{
+			filetopage();
+			drawpage();
+			putchar('\n');
+			fclose(file);
+			return 0;
+		}
+	}
+	else if (strcmp("find", argv[1]) == 0)
+	{
+		if ((file = fopen(argv[3], "r")) == NULL)
+		{
+			FileError();
+			return -2;
+		}
+		else
+		{
+			strcpy(word, argv[2]);
+			find(w);
+			fclose(file);
+			return 0;
+		}
 	}
 	else
 	{
