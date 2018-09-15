@@ -99,8 +99,8 @@ void help()
 	       "\t txt [merge] [append this FILE] [to this FILE]\n"
 	       "3.\tTo view the contents of a file, enter:\n"
 	       "\t txt [print] [FILE name]\n"
-	       "4.\tYou can also replace each instance of a word in a file with another word:\n"
-	       "\t txt [replace] [this WORD] [with this WORD] [in this FILE]\n");
+	       "4.\ttxt can search for a string in a file and print each line containing that string:\n"
+	       "\t txt [find] [this string] [in this FILE]\n");
 	return;
 }
 int input(void);
