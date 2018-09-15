@@ -161,11 +161,15 @@ void find(char *);
 void find(char *s)
 {
 	int c=0;
+	unsigned int linenum=1;
 	char *d = &line[0];
 	while ((c = getaline()) != EOF)
 	{
 		if (strstr(d, s) != NULL)
-			printf("%s\n", line);
+		{
+			printf("%d. %s\n", linenum, line);
+			++linenum;
+		}
 		else
 			continue;
 	}
