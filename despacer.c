@@ -13,7 +13,7 @@ int despacer(int agindex, char** ags)
     strcpy(old, ags[agindex]);
     for (index1 = 0, index2 = 0; (c = old[index1]) != '\0'; index1++)
     {
-        if (c == ' ' || c == '\t' || c == 39 || c == '(' || c == ')')
+        if (c == ' ' || c == '\t' || c == 39 || c == '(' || c == ')' || c == '"')
             continue;
         else
         {
